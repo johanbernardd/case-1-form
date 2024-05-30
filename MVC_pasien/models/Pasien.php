@@ -56,7 +56,7 @@ class Pasien
         return false;
     }
 
-    public function update($id)
+    public function edit($id)
     {
         $query = "UPDATE " . $this->table_name . " SET name=:name, dob=:dob, gender=:gender, address=:address WHERE id=:id";
         $stmt = $this->conn->prepare($query);
