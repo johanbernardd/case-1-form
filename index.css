@@ -1,0 +1,64 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.hero, .check-doctors, .btn {
+    background-color: #1abc9c;
+    color: white;
+}
+
+.hero h1, .hero h2, .check-doctors h2 {
+    color: white;
+}
+
+.btn {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #16a085;
+}
+
+.nav-link {
+    font-weight: 400;
+}
+
+.navbar-brand, .nav-link.text-white {
+    font-weight: 700;
+}
+
+.team-member h3 {
+    font-weight: 700;
+}
+
+footer h3, footer p, footer a, footer ul {
+    font-weight: 400;
+    color: black;
+}
+
+.footer-bottom {
+    margin: 200px;
+}
+
+.btn-primary {
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+}
+
+.btn-primary:hover {
+    background-color: #16a085;
+    border-color: #16a085;
+}
+
+bg-primary {
+    background-color: red;
+}
