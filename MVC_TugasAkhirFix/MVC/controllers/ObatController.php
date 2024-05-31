@@ -18,7 +18,7 @@ class ObatController
             $obat->nama = $_POST['nama'];
             $obat->harga = $_POST['harga'];
             if ($obat->create()) {
-                header("Location: index.php?controller=obat&action=index");
+                header("Location: router.php?controller=obat&action=index");
             }
         }
         require_once 'views/obat/create.php';
@@ -32,17 +32,16 @@ class ObatController
             $obat->nama = $_POST['nama'];
             $obat->harga = $_POST['harga'];
             if ($obat->update($id)) {
-                header("Location: index.php?controller=obat&action=index");
+                header("Location: ../router.php?controller=obat&action=index");
             }
         }
-        require_once 'views/obat/edit.php';
     }
 
     public function delete($id)
     {
         $obat = new Obat();
         if ($obat->delete($id)) {
-            header("Location: index.php?controller=obat&action=index");
+            header("Location: router.php?controller=obat&action=index");
         }
     }
 }

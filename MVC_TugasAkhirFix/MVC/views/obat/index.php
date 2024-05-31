@@ -74,8 +74,12 @@
 
 <body>
     <div class="container">
+        <div class="button-container">
+            <a href="index.php">⬅️Back</a>
+            <a href="router.php?controller=resep&action=index">Next➡️</a>
+        </div>
         <h1>Daftar Obat</h1>
-        <a href="index.php?controller=obat&action=create">Tambah Obat</a>
+        <a href="router.php?controller=obat&action=create">Tambah Obat</a>
         <table>
             <thead>
                 <tr>
@@ -92,8 +96,8 @@
                         <td><?php echo $obat['nama']; ?></td>
                         <td><?php echo 'Rp ' . number_format($obat['harga'], 0, ',', '.'); ?></td>
                         <td class="action-links">
-                            <a href="index.php?controller=obat&action=edit&id=<?php echo $obat['id']; ?>">Edit</a>
-                            <a href="index.php?controller=obat&action=delete&id=<?php echo $obat['id']; ?>" onclick="return confirm('Anda yakin ingin menghapus obat ini?')">Delete</a>
+                            <a href="../MVC/router.php?controller=obat&action=edit&id=<?php echo $obat['id']; ?>">Edit</a>
+                            <a href="router.php?controller=obat&action=delete&id=<?php echo $obat['id']; ?>" onclick="return confirm('Anda yakin ingin menghapus obat ini?')">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

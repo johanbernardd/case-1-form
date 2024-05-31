@@ -71,8 +71,11 @@
 
 <body>
     <div class="container">
+        <div class="button-container">
+            <a href="router.php?controller=obat&action=index">⬅️Back</a>
+        </div>
         <h1>Daftar Resep</h1>
-        <a href="index.php?controller=resep&action=create">Tambah Resep</a>
+        <a href="router.php?controller=resep&action=create">Tambah Resep</a>
         <table>
             <thead>
                 <tr>
@@ -91,8 +94,8 @@
                         <td><?php echo $resep['tanggal']; ?></td>
                         <td><?php echo $resep['jumlah']; ?></td>
                         <td class="action-links">
-                            <a href="index.php?controller=resep&action=edit&id=<?php echo $resep['id']; ?>">Edit</a>
-                            <a href="index.php?controller=resep&action=delete&id=<?php echo $resep['id']; ?>">Delete</a>
+                            <a href="router.php?controller=resep&action=edit&id=<?php echo $resep['id']; ?>">Edit</a>
+                            <a href="router.php?controller=resep&action=delete&id=<?php echo $resep['id']; ?>">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

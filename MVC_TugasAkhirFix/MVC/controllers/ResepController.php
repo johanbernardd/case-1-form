@@ -23,7 +23,7 @@ class ResepController
             $resep->tanggal = $_POST['tanggal'];
             $resep->jumlah = $_POST['jumlah'];
             if ($resep->create()) {
-                header("Location: index.php?controller=resep&action=index");
+                header("Location: router.php?controller=resep&action=index");
             }
         }
         require_once 'views/resep/create.php';
@@ -41,7 +41,7 @@ class ResepController
             $resep->tanggal = $_POST['tanggal'];
             $resep->jumlah = $_POST['jumlah'];
             if ($resep->update($id)) {
-                header("Location: index.php?controller=resep&action=index");
+                header("Location: router.php?controller=resep&action=index");
             }
         }
         require_once 'views/resep/edit.php';
@@ -51,7 +51,7 @@ class ResepController
     {
         $resep = new Resep();
         if ($resep->delete($id)) {
-            header("Location: index.php?controller=resep&action=index");
+            header("Location: router.php?controller=resep&action=index");
         }
     }
 }
