@@ -1,9 +1,8 @@
 <?php
 class PembayaranController extends Controller
-
 {
-
     private $pembayaranModel;
+
     public function __construct()
     {
         $this->pembayaranModel = $this->loadModel('PembayaranModel');
@@ -11,65 +10,87 @@ class PembayaranController extends Controller
 
     public function index()
     {
-        $pembayaranModel = $this->loadModel('PembayaranModel');
-        $pembayaran = $pembayaranModel->getAll();
+        $pembayaran = $this->pembayaranModel->getAll();
         $this->loadView('Pembayaran/posts', ['pembayaran' => $pembayaran]);
     }
 
     public function create_form()
     {
-        $pembayaranModel = $this->loadModel('PembayaranModel');
-        $rekamMedis = $pembayaranModel->getAllRekamMedis();
+        $rekamMedis = $this->pembayaranModel->getAllRekamMedis();
         $this->loadView('Pembayaran/insert_post', ['rekamMedis' => $rekamMedis]);
     }
 
     public function create_process()
     {
-        $pembayaranModel = $this->loadModel('PembayaranModel');
-        $rekam_medis_id = $_POST['rekam_medis_id'];
-        $jumlah_bayar = $_POST['jumlah_bayar'];
-        $metode_pembayaran = $_POST['metode_pembayaran'];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $rekam_medis_id = $_POST['rekam_medis_id'] ?? null;
+            $jumlah_bayar = $_POST['jumlah_bayar'] ?? null;
+            $metode_pembayaran = $_POST['metode_pembayaran'] ?? null;
 
-        $pembayaranModel->insert($rekam_medis_id, $jumlah_bayar, $metode_pembayaran);
-        header('Location: ?c=PembayaranController');
-        exit;
+            if ($rekam_medis_id && $jumlah_bayar && $metode_pembayaran) {
+                $this->pembayaranModel->insert($rekam_medis_id, $jumlah_bayar, $metode_pembayaran);
+                header('Location: index.php?c=PembayaranController&m=index');
+                exit;
+            } else {
+                $error = "All fields are required.";
+                $rekamMedis = $this->pembayaranModel->getAllRekamMedis();
+                $this->loadView('Pembayaran/insert_post', ['rekamMedis' => $rekamMedis, 'error' => $error]);
+            }
+        }
     }
-
 
     public function edit()
     {
-        $id = $_GET['id'];
+        $id = $_GET['id'] ?? null;
 
-        if (!$id) header('Location: index.php?c=PembayaranController');
+        if (!$id) {
+            header('Location: index.php?c=PembayaranController&m=index');
+            exit;
+        }
 
-        $pembayaranModel = $this->loadModel('PembayaranModel');
-        $pembayaran = $pembayaranModel->getById($id);
+        $pembayaran = $this->pembayaranModel->getById($id);
+        $rekamMedis = $this->pembayaranModel->getAllRekamMedis();
 
-        if (!$pembayaran->num_rows) header('Location: index.php?c=PembayaranController');
+        if (!$pembayaran) {
+            header('Location: index.php?c=PembayaranController&m=index');
+            exit;
+        }
 
-        $this->loadView('Pembayaran/edit', ['pembayaran' => $pembayaran->fetch_object()]);
+        $this->loadView('Pembayaran/edit', ['pembayaran' => $pembayaran, 'rekamMedis' => $rekamMedis]);
     }
 
     public function update()
     {
-        $pembayaranModel = $this->loadModel('PembayaranModel');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'] ?? null;
+            $rekam_medis_id = $_POST['rekam_medis_id'] ?? null;
+            $jumlah_bayar = $_POST['jumlah_bayar'] ?? null;
+            $metode_pembayaran = $_POST['metode_pembayaran'] ?? null;
 
-        $id = $_POST['id'];
-        $rekam_medis_id = $_POST['rekam_medis_id'];
-        $jumlah_bayar = $_POST['jumlah_bayar'];
-        $metode_pembayaran = $_POST['metode_pembayaran'];
-
-        $pembayaranModel->update($id, $rekam_medis_id, $jumlah_bayar, $metode_pembayaran);
-        header('Location: ?c=PembayaranController');
+            if ($id && $rekam_medis_id && $jumlah_bayar && $metode_pembayaran) {
+                $this->pembayaranModel->update($id, $rekam_medis_id, $jumlah_bayar, $metode_pembayaran);
+                header('Location: index.php?c=PembayaranController&m=index');
+                exit;
+            } else {
+                $error = "All fields are required.";
+                $pembayaran = $this->pembayaranModel->getById($id);
+                $rekamMedis = $this->pembayaranModel->getAllRekamMedis();
+                $this->loadView('Pembayaran/edit', ['pembayaran' => $pembayaran, 'rekamMedis' => $rekamMedis, 'error' => $error]);
+            }
+        }
     }
 
     public function delete()
     {
-        $id = $_POST['id'];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'] ?? null;
 
-        $pembayaranModel = $this->loadModel('PembayaranModel');
-        $pembayaranModel->delete($id);
+            if ($id) {
+                $this->pembayaranModel->delete($id);
+            }
 
-        header('location:?c=PembayaranController');
+            header('Location: index.php?c=PembayaranController&m=index');
+            exit;
+        }
     }
 }

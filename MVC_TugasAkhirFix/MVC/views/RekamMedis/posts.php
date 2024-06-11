@@ -10,43 +10,53 @@
 </head>
 
 <body>
-    <h1>Rekam Medis</h1>
-    <a href="?c=RekamMedisController&m=create_form">Tambah Rekam Medis Baru</a>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>ID Pasien</th>
-            <th>ID Dokter</th>
-            <th>Tanggal</th>
-            <th>Diagnosa</th>
-            <th>Tindakan</th>
-            <th>Action</th>
-        </tr>
-        <?php if (isset($rekamMedis) && count($rekamMedis) > 0) : ?>
-            <?php foreach ($rekamMedis as $rekam_medis) : ?>
+    <div class="container mt-5">
+        <h1>Rekam Medis</h1>
+        <a href="?c=RekamMedisController&m=create_form" class="btn btn-primary mb-3">Tambah Rekam Medis Baru</a>
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td><?php echo $rekam_medis['id']; ?></td>
-                    <td><?php echo $rekam_medis['pasien_id']; ?></td>
-                    <td><?php echo $rekam_medis['dokter_id']; ?></td>
-                    <td><?php echo $rekam_medis['tanggal']; ?></td>
-                    <td><?php echo $rekam_medis['diagnosa']; ?></td>
-                    <td><?php echo $rekam_medis['tindakan']; ?></td>
-                    <td>
-                        <form action="" method="GET" style="display: inline;">
-                            <input type="hidden" name="c" value="RekamMedisController">
-                            <input type="hidden" name="m" value="edit">
-                            <input type="hidden" name="id" value="<?php echo $rekam_medis['id']; ?>">
-                            <button type="submit">Edit</button>
-                        </form>
-                        <form action="?c=RekamMedisController&m=delete" method="POST" style="display: inline;">
-                            <input type="hidden" name="id" value="<?php echo $rekam_medis['id']; ?>">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>Nama Pasien</th>
+                    <th>Nama Dokter</th>
+                    <th>Tanggal</th>
+                    <th>Diagnosa</th>
+                    <th>Tindakan</th>
+                    <th>Action</th>
                 </tr>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </table>
+            </thead>
+            <tbody>
+                <?php if (isset($rekamMedis) && count($rekamMedis) > 0) : ?>
+                    <?php foreach ($rekamMedis as $rekam_medis) : ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($rekam_medis['id']); ?></td>
+                            <td><?php echo htmlspecialchars($rekam_medis['pasien_nama']); ?></td>
+                            <td><?php echo htmlspecialchars($rekam_medis['dokter_nama']); ?></td>
+                            <td><?php echo htmlspecialchars($rekam_medis['tanggal']); ?></td>
+                            <td><?php echo htmlspecialchars($rekam_medis['diagnosa']); ?></td>
+                            <td><?php echo htmlspecialchars($rekam_medis['tindakan']); ?></td>
+                            <td>
+                                <form action="?c=RekamMedisController&m=edit" method="GET" style="display: inline;">
+                                    <input type="hidden" name="c" value="RekamMedisController">
+                                    <input type="hidden" name="m" value="edit">
+                                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($rekam_medis['id']); ?>">
+                                    <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                                </form>
+                                <form action="?c=RekamMedisController&m=delete" method="POST" style="display: inline;">
+                                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($rekam_medis['id']); ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="7">No records found.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>

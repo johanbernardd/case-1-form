@@ -10,36 +10,40 @@
 </head>
 
 <body>
-    <h1>Pembayaran</h1>
-    <a href="?c=PembayaranController&m=create_form">Tambah Pembayaran Baru</a>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Rekam Medis ID</th>
-            <th>Jumlah Bayar</th>
-            <th>Metode Pembayaran</th>
-            <th>Tanggal Pembayaran</th>
-            <th>Action</th>
-        </tr>
-        <?php foreach ($pembayaran as $p) : ?>
-            <tr>
-                <td><?php echo $p['id']; ?></td>
-                <td><?php echo $p['rekam_medis_id']; ?></td>
-                <td><?php echo $p['jumlah_bayar']; ?></td>
-                <td><?php echo $p['metode_pembayaran']; ?></td>
-                <td><?php echo $p['created_at']; ?></td>
-                <td>
-                    <form action="?c=PembayaranController&m=edit&id=<?php echo $p['id']; ?>" method="get" style="display:inline;">
-                        <button type="submit">Edit</button>
-                    </form>
-                    <form action="?c=PembayaranController&m=delete" method="POST" style="display:inline;">
-                        <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
+    <div class="container mt-5">
+        <h1>Pembayaran</h1>
+        <a href="?c=PembayaranController&m=create_form" class="btn btn-primary mb-3">Tambah Pembayaran Baru</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Rekam Medis ID</th>
+                    <th>Jumlah Bayar</th>
+                    <th>Metode Pembayaran</th>
+                    <th>Tanggal Pembayaran</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($pembayaran as $p) : ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($p['id']); ?></td>
+                        <td><?php echo htmlspecialchars($p['rekam_medis_id']); ?></td>
+                        <td><?php echo htmlspecialchars($p['jumlah_bayar']); ?></td>
+                        <td><?php echo htmlspecialchars($p['metode_pembayaran']); ?></td>
+                        <td><?php echo htmlspecialchars($p['created_at']); ?></td>
+                        <td>
+                            <a href="?c=PembayaranController&m=edit&id=<?php echo htmlspecialchars($p['id']); ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="?c=PembayaranController&m=delete" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($p['id']); ?>">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>

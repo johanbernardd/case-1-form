@@ -10,24 +10,33 @@
 </head>
 
 <body>
-    <h1>Tambah Pembayaran</h1>
-    <form action="?c=PembayaranController&m=create_process" method="POST">
-        <label for="rekam_medis">Rekam Medis ID:</label>
-        <select name="rekam_medis_id" id="rekam_medis">
-            <?php foreach ($rekamMedis as $rekam_medis) : ?>
-                <option value="<?php echo $rekam_medis['id']; ?>"><?php echo $rekam_medis['id']; ?></option>
-            <?php endforeach; ?>
-        </select><br>
-        <label for="jumlah_bayar">Jumlah Bayar:</label>
-        <input type="number" id="jumlah_bayar" name="jumlah_bayar" step="0.01" required><br>
-        <label for="metode_pembayaran">Metode Pembayaran:</label>
-        <select id="metode_pembayaran" name="metode_pembayaran" required>
-            <option value="Cash">Cash</option>
-            <option value="Debit">Debit</option>
-            <option value="Credit">Credit</option>
-        </select><br><br>
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container mt-5">
+        <h1>Tambah Pembayaran</h1>
+        <?php if (!empty($error)) : ?>
+            <div class="alert alert-danger">
+                <?php echo htmlspecialchars($error); ?>
+            </div>
+        <?php endif; ?>
+        <form action="?c=PembayaranController&m=create_process" method="POST">
+            <div class="mb-3">
+                <label for="rekam_medis_id" class="form-label">Rekam Medis ID</label>
+                <select name="rekam_medis_id" id="rekam_medis_id" class="form-select">
+                    <?php foreach ($rekamMedis as $rm) : ?>
+                        <option value="<?php echo htmlspecialchars($rm['id']); ?>"><?php echo htmlspecialchars($rm['id']); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="jumlah_bayar" class="form-label">Jumlah Bayar</label>
+                <input type="number" name="jumlah_bayar" id="jumlah_bayar" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="metode_pembayaran" class="form-label">Metode Pembayaran</label>
+                <input type="text" name="metode_pembayaran" id="metode_pembayaran" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Tambah Pembayaran</button>
+        </form>
+    </div>
 </body>
 
 </html>

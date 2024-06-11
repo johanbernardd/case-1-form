@@ -10,33 +10,45 @@
 </head>
 
 <body>
-    <h1>Tambah Rekam Medis</h1>
-    <form action="?c=RekamMedisController&m=create_process" method="POST">
-        <label for="pasien_id">ID Pasien:</label>
-        <select name="pasien_id" id="pasien_id">
-            <?php foreach ($pasien as $p) : ?>
-                <option value="<?php echo $p['id']; ?>"><?php echo $p['nama']; ?></option>
-            <?php endforeach; ?>
-        </select><br>
+    <div class="container mt-5">
+        <h1>Tambah Rekam Medis</h1>
+        <form action="?c=RekamMedisController&m=create_process" method="POST">
+            <div class="mb-3">
+                <label for="pasien_id" class="form-label">Nama Pasien:</label>
+                <select name="pasien_id" id="pasien_id" class="form-select">
+                    <?php foreach ($pasien as $p) : ?>
+                        <option value="<?php echo htmlspecialchars($p['id']); ?>"><?php echo htmlspecialchars($p['nama']); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="dokter_id">ID Dokter:</label>
-        <select name="dokter_id" id="dokter_id">
-            <?php foreach ($dokter as $d) : ?>
-                <option value="<?php echo $d['id']; ?>"><?php echo $d['nama']; ?></option>
-            <?php endforeach; ?>
-        </select><br>
+            <div class="mb-3">
+                <label for="dokter_id" class="form-label">Nama Dokter:</label>
+                <select name="dokter_id" id="dokter_id" class="form-select">
+                    <?php foreach ($dokter as $d) : ?>
+                        <option value="<?php echo htmlspecialchars($d['id']); ?>"><?php echo htmlspecialchars($d['nama']); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="tanggal">Tanggal:</label>
-        <input type="date" name="tanggal" id="tanggal"><br>
+            <div class="mb-3">
+                <label for="tanggal" class="form-label">Tanggal:</label>
+                <input type="date" name="tanggal" id="tanggal" class="form-control">
+            </div>
 
-        <label for="diagnosa">Diagnosa:</label>
-        <input type="text" name="diagnosa" id="diagnosa"><br>
+            <div class="mb-3">
+                <label for="diagnosa" class="form-label">Diagnosa:</label>
+                <input type="text" name="diagnosa" id="diagnosa" class="form-control">
+            </div>
 
-        <label for="tindakan">Tindakan:</label>
-        <input type="text" name="tindakan" id="tindakan"><br>
+            <div class="mb-3">
+                <label for="tindakan" class="form-label">Tindakan:</label>
+                <input type="text" name="tindakan" id="tindakan" class="form-control">
+            </div>
 
-        <button type="submit">Tambah</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Tambah</button>
+        </form>
+    </div>
 </body>
 
 </html>

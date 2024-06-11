@@ -10,35 +10,47 @@
 </head>
 
 <body>
-    <h1>Edit Rekam Medis</h1>
-    <form action="?c=RekamMedisController&m=update" method="POST">
-        <input type="hidden" name="id" value="<?php echo $rekamMedis['id']; ?>">
+    <div class="container mt-5">
+        <h1>Edit Rekam Medis</h1>
+        <form action="?c=RekamMedisController&m=update" method="POST">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($rekamMedis['id']); ?>">
 
-        <label for="pasien_id">ID Pasien:</label>
-        <select name="pasien_id" id="pasien_id">
-            <?php foreach ($pasien as $p) : ?>
-                <option value="<?php echo $p['id']; ?>" <?php echo $p['id'] == $rekamMedis['pasien_id'] ? 'selected' : ''; ?>><?php echo $p['nama']; ?></option>
-            <?php endforeach; ?>
-        </select><br>
+            <div class="mb-3">
+                <label for="pasien_id" class="form-label">Nama Pasien:</label>
+                <select name="pasien_id" id="pasien_id" class="form-select">
+                    <?php foreach ($pasien as $p) : ?>
+                        <option value="<?php echo htmlspecialchars($p['id']); ?>" <?php echo $p['id'] == $rekamMedis['pasien_id'] ? 'selected' : ''; ?>><?php echo htmlspecialchars($p['nama']); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="dokter_id">ID Dokter:</label>
-        <select name="dokter_id" id="dokter_id">
-            <?php foreach ($dokter as $d) : ?>
-                <option value="<?php echo $d['id']; ?>" <?php echo $d['id'] == $rekamMedis['dokter_id'] ? 'selected' : ''; ?>><?php echo $d['nama']; ?></option>
-            <?php endforeach; ?>
-        </select><br>
+            <div class="mb-3">
+                <label for="dokter_id" class="form-label">Nama Dokter:</label>
+                <select name="dokter_id" id="dokter_id" class="form-select">
+                    <?php foreach ($dokter as $d) : ?>
+                        <option value="<?php echo htmlspecialchars($d['id']); ?>" <?php echo $d['id'] == $rekamMedis['dokter_id'] ? 'selected' : ''; ?>><?php echo htmlspecialchars($d['nama']); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="tanggal">Tanggal:</label>
-        <input type="date" name="tanggal" id="tanggal" value="<?php echo $rekamMedis['tanggal']; ?>"><br>
+            <div class="mb-3">
+                <label for="tanggal" class="form-label">Tanggal:</label>
+                <input type="date" name="tanggal" id="tanggal" class="form-control" value="<?php echo htmlspecialchars($rekamMedis['tanggal']); ?>">
+            </div>
 
-        <label for="diagnosa">Diagnosa:</label>
-        <input type="text" name="diagnosa" id="diagnosa" value="<?php echo $rekamMedis['diagnosa']; ?>"><br>
+            <div class="mb-3">
+                <label for="diagnosa" class="form-label">Diagnosa:</label>
+                <input type="text" name="diagnosa" id="diagnosa" class="form-control" value="<?php echo htmlspecialchars($rekamMedis['diagnosa']); ?>">
+            </div>
 
-        <label for="tindakan">Tindakan:</label>
-        <input type="text" name="tindakan" id="tindakan" value="<?php echo $rekamMedis['tindakan']; ?>"><br>
+            <div class="mb-3">
+                <label for="tindakan" class="form-label">Tindakan:</label>
+                <input type="text" name="tindakan" id="tindakan" class="form-control" value="<?php echo htmlspecialchars($rekamMedis['tindakan']); ?>">
+            </div>
 
-        <button type="submit">Update</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
 </body>
 
 </html>

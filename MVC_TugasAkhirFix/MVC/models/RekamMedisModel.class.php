@@ -1,9 +1,12 @@
 <?php
 class RekamMedisModel extends Model
 {
-    public function getAll()
+    public function getAllWithNames()
     {
-        $sql = "SELECT * FROM rekam_medis";
+        $sql = "SELECT rm.*, p.nama as pasien_nama, d.nama as dokter_nama 
+                FROM rekam_medis rm 
+                JOIN pasien p ON rm.pasien_id = p.id 
+                JOIN dokter d ON rm.dokter_id = d.id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
 
@@ -53,31 +56,10 @@ class RekamMedisModel extends Model
 
     public function delete($id)
     {
-        $this->conn->beginTransaction();
-
-        try {
-            $sql = "DELETE FROM rekam_medis WHERE id = :id";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-
-            $sql = "CREATE TEMPORARY TABLE tmp_rekam_medis AS SELECT * FROM rekam_medis";
-            $this->conn->query($sql);
-
-            $sql = "TRUNCATE TABLE rekam_medis";
-            $this->conn->query($sql);
-
-            $sql = "INSERT INTO rekam_medis SELECT * FROM tmp_rekam_medis";
-            $this->conn->query($sql);
-
-            $sql = "DROP TEMPORARY TABLE tmp_rekam_medis";
-            $this->conn->query($sql);
-
-            $this->conn->commit();
-        } catch (Exception $e) {
-            $this->conn->rollback();
-            throw $e;
-        }
+        $sql = "DELETE FROM rekam_medis WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
     }
 
     public function getAllPasien()
